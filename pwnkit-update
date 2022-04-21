@@ -7,7 +7,7 @@ MY_PATH=$(dirname "$0")
 # Check for docker
 
 echo "Pulling latest pwnkit image . . ."
-sudo docker pull jasperboot/pwnkit:latest
+sudo docker pull amovane/pwnkit:latest
 echo "Image pulled succesfully!"
 
 echo "Pulling latest version from GitHub . . ."

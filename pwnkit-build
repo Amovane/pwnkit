@@ -8,13 +8,13 @@ MY_PATH=$(dirname "$0")
 # Check for docker
 
 echo "Pulling latest base image . . ."
-sudo docker pull kalilinux/kali-rolling:latest
+sudo docker pull kalilinux/kali-rolling:latest --platform linux/arm64
 echo "Base image pulled."
 
 echo "Building docker image . . ."
-sudo docker build -t jasperboot/pwnkit:latest --pull .
+sudo docker build  --platform linux/arm64 -t amovane/pwnkit:latest --pull .
 echo "Docker image built successfully."
 
 echo "Pushing new version to registry . . ."
-sudo docker jasperboot/pwnkit:latest
+sudo docker push amovane/pwnkit:latest
 echo "New image pushed succesfully!"

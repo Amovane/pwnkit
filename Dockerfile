@@ -1,7 +1,7 @@
 FROM kalilinux/kali-rolling:latest
 
 # Software tools
-RUN dpkg --add-architecture i386
+RUN dpkg --add-architecture arm64
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 
@@ -24,10 +24,10 @@ RUN apt-get install -y gobuster
 RUN apt-get install -y iputils-ping
 RUN apt-get install -y john
 RUN apt-get install -y joomscan
-RUN apt-get install -y libc6-i386
+RUN apt-get install -y libc6
 RUN apt-get install -y libimage-exiftool-perl
 RUN apt-get install -y libpcre++-dev
-RUN apt-get install -y ltrace
+# RUN apt-get install -y ltrace
 RUN apt-get install -y man
 RUN apt-get install -y nano
 RUN apt-get install -y ncat
@@ -54,7 +54,7 @@ RUN apt-get install -y tree
 RUN apt-get install -y vim
 RUN apt-get install -y wfuzz
 RUN apt-get install -y wine
-RUN apt-get install -y wine32
+RUN apt-get install -y libwine
 RUN apt-get install -y winexe
 RUN apt-get install -y wordlists
 RUN apt-get install -y xxd
@@ -100,7 +100,16 @@ RUN pip3 install --upgrade z3-solver
 RUN git clone https://github.com/hugsy/gef.git .gef && \
     echo "source $(pwd)/.gef/gef.py" >> ~/.gdbinit
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
+    -t https://github.com/denysdovhan/spaceship-prompt \
+    -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
+    -a 'SPACESHIP_PROMPT_SEPARATE_LINE="false"' \
+    -p git \
+    -p ssh-agent \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions
 
 # Create work directories
 RUN mkdir /workdir
